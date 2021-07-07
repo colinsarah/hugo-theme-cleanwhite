@@ -72,6 +72,7 @@ The optional comments system is powered by [Disqus](https://disqus.com). If you 
 ```toml
 disqusShortname = "your-disqus-short-name"
 ```
+准备用Gitalk 替代Disqus
 You can disable the comments system by leaving the `disqusShortname` empty.
 
 ### Disqus in China

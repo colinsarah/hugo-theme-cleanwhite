@@ -1,4 +1,4 @@
-<!-- disqus 评论框 end -->
+<!-- disqus 评论框 end
 <div id="disqus-comment"></div>
 {{ if .Site.Params.disqus_proxy }}
 <script src="{{ "js/iDisqus.js" | relURL }}"></script>
@@ -15,3 +15,32 @@ var disq = new iDisqus('disqus-comment', {
 {{ else if .Site.DisqusShortname }}
 {{ template "_internal/disqus.html" . }}
 {{ end }}
+
+-->
+<div id="gitalk-container"></div>
+<script src='{{ "js/gitalk.min.js" | relURL }}'></script>
+<link rel="stylesheet" href='{{ "css/gitalk.min.css" | relURL }}'>
+<!--https://lingering-mountain-962b.colinsarah1314.workers.dev?https://github.com/login/oauth/access_token-->
+<script>
+    var gitalk = new Gitalk({
+        clientID: '{{ .Site.Params.gitalk.clientID }}', // GitHub Application Client ID
+        clientSecret: '{{ .Site.Params.gitalk.clientSecret }}', // GitHub Application Client Secret
+        repo: '{{ .Site.Params.gitalk.repo }}',      // 存放评论的仓库
+        owner: '{{ .Site.Params.gitalk.owner }}',          // 仓库的创建者，
+        admin: ['{{ .Site.Params.gitalk.owner }}'],        // 如果仓库有多个人可以操作，那么在这里以数组形式写出
+        // labels:['comment'],
+        // labels: ['comment'],
+        // perPage: '{{ .Site.Params.gitalk.perPage }}',
+        id: location.pathname,      // 用于标记评论是哪个页面的，确保唯一，并且长度小于50
+        language: '{{ .Site.Params.gitalk.language }}',
+        proxy: "{{ .Site.Params.gitalk.proxy }}"
+    });
+
+    gitalk.render('gitalk-container');    // 渲染Gitalk评论组件
+    //     // 监听URL中hash的变化，如果发现换了一个MD文件，那么刷新页面，解决整个网站使用一个gitalk评论issues的问题。
+    // window.onhashchange = function (event) {
+    // 	if (event.newURL.split('?')[0] !== event.oldURL.split('?')[0]) {
+    // 		location.reload()
+    // 	}
+    //     }
+</script>
